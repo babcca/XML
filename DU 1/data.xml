@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE database SYSTEM "./data.dtd">
+<database>
+	<!-- Seznam vsech pojistovacich agentu, vyuzivacich tento program -->
+	<agents>
+		<agent id="a0">
+			<name>Petr Babicka</name>
+			<email>babcca@gmail.com</email>
+			<password>asd8s890adas89s0asd890ada678</password>
+			<identification>1231321331</identification>
+			<registration>2143241241</registration>
+			<address>
+				<street>V hlusinach 12</street>
+				<city>Svetla nad Sazavou</city>
+				<postal>58291</postal>
+			</address>
+			<!-- Nastaveni klienta -->
+			<settings>
+				<!-- Bohuzel kazda tiskarna ma souradnice (0,0) posunute, toto slouzi pro kalibraci jednotlivych tiskaren -->
+				<printers>
+					<printer name="hp2110" offset_x="5" offset_y="10"/>
+					<printer name="ineo210" offset_x="0" offset_y="0"/>
+				</printers>
+			</settings>
+			<!-- Kienti pojistovaciho agenta, kazdy agent ma vlastni klienty -->
+			<clients>
+				<client id="c0">
+					<name>Karel Omacka</name>
+					<!-- Je klient fizicka nebo pravni osoba, je platce dph -->
+					<subject type="fyzicka" dph="false">
+						<!-- Jak identifikujeme klienta, bud pomoci datumu narozeni nebo pomoci ico -->
+						<date>12.12.1989</date>
+					</subject>
+					<address>
+						<street>V hlusinach 12</street>
+						<city>Svetla nad Sazavou</city>
+						<postal>58291</postal>
+					</address>
+				</client>
+			</clients>
+			
+			<!-- Kazdy agent ma sve vyplnene a ulozene dokumenty -->
+			<documents>
+				<!--
+				 Ulozene dokumenty, ktere byly vygenerovany programem 
+				 Prikaz print slouzi k pokynu pro tiskovou sluzbu, aby vedela odkud ma zacit titsknout dane
+				 polozky (+ offsety z tiskaren).
+				 Nektere texty jsou brane ze vstupu, jine jsou dany primo z db.	
+				-->
+				<document id="d0" agent_id="a0" client_id="c0" insurance_company_id="ic0">
+					<selected_offer id="so">
+						<offer_a href="o0">
+							<text_a href="ot0" />
+							<property_a href="op0" />
+							<property_a href="op1" />
+						</offer_a>
+						<offer_a href="o1">
+							<text_a href="ot1" />
+							<property_a href="op2" />
+							<property_a href="op3" />
+						</offer_a>
+					</selected_offer>
+					<!-- Podrobnejsi specifikace pozadavku a potreb klienta -->
+					<print x="40" y="300"><selected_offer_a href="so" /></print>
+					<!-- Mozna reseni pozadavku klienta -->
+					<print x="40" y="340">
+					<solutions>
+						<solution id="s0" insurance_company_id="ic0" product_id="icp0" text_id="icpt0" approved="true" selected_offer_id="so">
+							<price>1234 &currency;</price>
+						</solution>
+						<solution id="s1" insurance_company_id="ic1" product_id="icp3" text_id="icpt1" approved="false" selected_offer_id="so">
+							<price>2234 &currency;</price>
+						</solution>
+						<solution id="s2" insurance_company_id="ic1" product_id="icp2" text_id="icpt2" approved="false" selected_offer_id="so">
+							<price>3234 &currency;</price>
+						</solution>
+					</solutions>
+					</print>
+					<!-- Vyber produktu na zaklade -->
+					<print x="40" y="450">
+						Klient vybral pojistny produkt na zaklade <selected>ceny</selected>, <selected>pojistovny</selected> a <user value="predchozich zkusenosti" />
+					</print>
+					<!-- Odmitnute dalsi navrhy -->
+					<print x="120" y="500">
+						<!-- Poznamka k odmitnuti -->
+						Z osobnich duvodu klient odmitl produkty
+						<!-- Odmitnute produkty -->
+						<print x="40" y="520"><solution_a href="s1" /></print>
+						<print x="40" y="540"><solution_a href="s2" /></print>
+					</print>
+					<!-- Uzavirany produkt -->
+					<print x="40" y="580">
+						<!-- Duvod proc se rozhodl vybrat tento produkt -->
+						Klient se rozhodl pro produkt <solution_a href="s0" />.
+					</print>
+				</document>
+			</documents>
+		</agent>
+	</agents>
+	<!-- Seznam pojistoven, ktere agent zna-->
+	<insurance_companies>
+		<insurance_company id="ic0">
+			<name>Ceska Pojistovna</name>
+			<shortcut>CP</shortcut>
+			<products>
+				<product id="icp0" offer_id="o0">
+					<!-- Oficialni nazev produktu -->
+					<name>POV A</name>
+					<!-- Poznamky pro dany produkt u pojistovny, napr. 70/70, vcetne rodiny, bez rodiny -->
+					<texts>
+						<text id="icpt0"><![CDATA[70/70]]></text>
+						<text id="icpt1"><![CDATA[125/125]]></text>
+						<text id="icpt2"><![CDATA[75/125]]></text>
+						<text id="icpt3"><![CDATA[> 2 vozidla]]></text>
+						<text id="icpt4"><![CDATA[< 3,5 tun]]></text>
+					</texts>
+				</product>
+				<product id="icp1" offer_id="o0">
+					<!-- Oficialni nazev produktu -->
+					<name>POV B</name>
+					<!-- Poznamky pro dany produkt u pojistovny, napr. 70/70, vcetne rodiny, bez rodiny -->
+					<texts>
+						<text id="icpt5"><![CDATA[70/70]]></text>
+						<text id="icpt6"><![CDATA[125/125]]></text>
+						<text id="icpt7"><![CDATA[75/125]]></text>
+						<text id="icpt8"><![CDATA[> 2 vozidla]]></text>
+						<text id="icpt9"><![CDATA[< 3,5 tun]]></text>
+					</texts>
+				</product>
+			</products>
+		</insurance_company>
+		<insurance_company id="ic1">
+			<name>CSOB</name>
+			<shortcut>CSOB</shortcut>
+			<products>
+				<product id="icp2" offer_id="o0">
+					<!-- Oficialni nazev produktu -->
+					<name>HPOV A</name>
+					<!-- Poznamky pro dany produkt u pojistovny, napr. 70/70, vcetne rodiny, bez rodiny -->
+					<texts>
+						<text id="icpt10"><![CDATA[70/70]]></text>
+						<text id="icpt11"><![CDATA[125/125]]></text>
+						<text id="icpt12"><![CDATA[75/125]]></text>
+						<text id="icpt13"><![CDATA[> 2 vozidla]]></text>
+						<text id="icpt14"><![CDATA[< 3,5 tun]]></text>
+					</texts>
+				</product>
+				<product id="icp3" offer_id="o0">
+					<!-- Oficialni nazev produktu -->
+					<name>HPOV B</name>
+					<!-- Poznamky pro dany produkt u pojistovny, napr. 70/70, vcetne rodiny, bez rodiny -->
+					<texts>
+						<text id="icpt15"><![CDATA[70/70]]></text>
+						<text id="icpt16"><![CDATA[125/125]]></text>
+						<text id="icpt17"><![CDATA[75/125]]></text>
+						<text id="icpt18"><![CDATA[> 2 vozidla]]></text>
+						<text id="icpt19"><![CDATA[< 3,5 tun]]></text>
+						<!-- Doplneni pro zadani, veskutecnoti tu bude 20 pojistoven, 25 nabidek, atp. -->
+						<text id="icpt20">Je tu taky strasne 
+							dlouhy text, ktery se da schovat pomoci komentare, ktery se zapise <![CDATA[<-- -->]]></text>
+						<text id="icpt22">&lt; toto a &gt; se tu nesmi primo vyskytnot, je treba pouzit znacky</text>
+						<text id="icpt23">Sekce cdata tu byt nemusi</text>
+						<text id="icpt24"><![CDATA[Chtel bych <b>tucny</b> text]]></text>
+						<text id="icpt25"><![CDATA[<product>Velice zakerny text</product>]]></text>
+						<text id="icpt26"><?php echo date("c"); ?></text> 
+					</texts>
+				</product>
+			</products>
+		</insurance_company>
+	</insurance_companies>
+	
+	<!-- Nabidky nabizene zprostredkovatelem -->
+	<offers>
+		<!-- Texty vpisovane do formulare -->
+		<texts>
+			<text id="ot0">Klient dale pozaduje pripojisteni na</text>
+			<text id="ot1">Klient pozaduje nasledujici produkty</text>
+		</texts>
+		<!-- Jednotlive nabidky, nabizene pro uspokojeni pozadavku klienta -->
+		<offer id="o0" label="POV" order="10">	
+			<!-- Kazda z nabidek ma jeste doplnujici vlastnosti -->
+			<properties>
+				<!-- Aby se na ne dalo odkazovat v textu, potrebuji atribut tag -->
+				<property id="op0" tag="A"><![CDATA[pojisteni prednich skel]]></property>
+				<property id="op1" tag="B"><![CDATA[pojisteni skel (> 2)]]></property>
+				<property id="op2" tag="C"><![CDATA[zavineni nehody <!-- S hloupim komentarem -->]]></property>
+			</properties>
+		</offer>
+		<offer id="o1" label="HAV" order="11">	
+			<properties>
+				<property id="op3" tag="A"><![CDATA[Dalsi vlastnost pojisteni]]></property>
+				<property id="op4" tag="B"><![CDATA[Jeste dalsi vlastnost]]></property>
+			</properties>
+		</offer>
+	</offers>
+</database>
