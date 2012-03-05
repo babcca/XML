@@ -1,5 +1,5 @@
 <!-- Udrzuje celou strukturu pohromade -->
-<!ELEMENT database ANY>
+<!ELEMENT database (agents, insurance_companies, offers)>
 
 <!-- Definice konstatnt pro vypis -->
 <!ENTITY currency "Kc">
