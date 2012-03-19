@@ -1,0 +1,2 @@
+(: Nazev pojistovnen, ktere maji vice nez jeden produkt :)
+/database/insurance_companies/descendant::insurance_company [count(products/product) > 1]/name/text()

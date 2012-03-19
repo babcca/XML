@@ -1,0 +1,2 @@
+(: Jmeno klientu agenta s id a0, kteri jsou identifikovani pomoci ico :)
+/database/agents/descendant::agent [@id = "a0"]/clients/client [subject/ico]/name/text()

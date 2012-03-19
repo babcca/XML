@@ -1,0 +1,2 @@
+(: Jmeno ahentu, kteri nemaji nastavenou tiskarnu :)
+//agent [not(settings/printers)]/name/text()

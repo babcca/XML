@@ -1,0 +1,2 @@
+(: Jmeno klienta, ktery neni uveden v nejake smlouve :)
+//client [not (@id = //document/@client_id)]/name/text()

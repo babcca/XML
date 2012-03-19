@@ -1,0 +1,2 @@
+(: Najdi vsechny vyuzite offer id, ktere v sobe obsahuji alespoon jednu vlastnost z offer s nazvem POV :)
+//offer_a [text_a/following-sibling::property_a [@href = (//offer [@label = "POV"]/properties/property/@id)]]/@href

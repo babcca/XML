@@ -1,0 +1,2 @@
+(: Nazev pojistoven, od kterych jsme schavlili jejich produkt :)
+//insurance_company [@id = //document/descendant::solution [@approved = "true"]/@insurance_company_id]/name/text()

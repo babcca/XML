@@ -1,0 +1,2 @@
+(: Vsechny tiskarny v elementu settings :)
+//printer [ancestor::settings]/@name/text() 

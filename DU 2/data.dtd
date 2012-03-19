@@ -1,0 +1,129 @@
+<!-- Udrzuje celou strukturu pohromade -->
+<!ELEMENT database (agents, insurance_companies, offers)>
+
+<!-- Definice konstatnt pro vypis -->
+<!ENTITY currency "Kc">
+
+<!-- Specifikace pro adresu -->
+<!ELEMENT address (street, city, postal)>
+<!ELEMENT street (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT postal (#PCDATA)>
+
+<!-- Specifikace pro textove poznamky -->
+<!ELEMENT texts (text*)>
+<!ELEMENT text (#PCDATA)>
+<!ATTLIST text id ID #REQUIRED>
+
+<!-- Specifikace elementu pro nastaveni -->
+<!ELEMENT settings (printers?)> <!-- Muzeme mit nejake tiskarny -->
+<!ELEMENT printers (printer+)> <!-- Mame alespon jednu tiskarnu -->
+<!ELEMENT printer EMPTY> 
+<!ATTLIST printer 
+	name CDATA #REQUIRED
+	offset_x CDATA #REQUIRED
+	offset_y CDATA #REQUIRED
+>
+
+<!-- Specifikace elementu pro klienty -->
+<!ELEMENT clients (client*)> <!-- Nula  avice klientu -->
+<!ELEMENT client (name, subject, address)>
+<!ATTLIST client id ID #REQUIRED>
+<!ELEMENT subject ((date | ico))>
+<!ATTLIST subject 
+	type (pravni|fyzicka) #REQUIRED 
+	dph (true|false) #REQUIRED
+>
+
+<!-- specifikace pro ulozene dokumenty -->
+<!ELEMENT documents (document*)>
+<!ELEMENT document (selected_offer, print*)>
+<!ATTLIST document
+	id ID #REQUIRED 
+	agent_id IDREF #REQUIRED
+	client_id IDREF #REQUIRED
+	insurance_company_id IDREF #REQUIRED
+>
+
+<!-- Element pro vybranou konfiguraci -->
+<!ELEMENT selected_offer (offer_a+)>
+<!ATTLIST selected_offer id ID  #REQUIRED>
+	
+<!-- Specifikace elementu pro agenty -->
+<!ELEMENT agents (agent+)>
+<!ELEMENT agent (name, email, password, identification, registration, address, settings, clients, documents)>
+<!ATTLIST agent id ID #REQUIRED>
+
+<!-- Specifikace pro produkt -->
+<!ELEMENT products (product+)>
+<!ELEMENT product (name, texts)>
+<!ATTLIST product id ID #REQUIRED>
+<!ATTLIST product offer_id IDREF #REQUIRED>
+
+<!-- Specifikace pro pojistovny -->
+<!ELEMENT insurance_companies (insurance_company*)>
+<!ELEMENT insurance_company (name, shortcut, products)>
+<!ATTLIST insurance_company id ID #REQUIRED>
+
+<!-- Specifikace pro vlastnosti nabidky -->
+<!ELEMENT properties (property*)>
+<!ELEMENT property (#PCDATA)>
+<!ATTLIST property
+	id ID #REQUIRED 
+	tag CDATA #REQUIRED
+>
+
+<!-- Specifikace nabidky -->
+<!ELEMENT offers (texts, offer+)>
+<!ELEMENT offer (properties)>
+<!ATTLIST offer
+	id ID #REQUIRED
+	label CDATA #REQUIRED
+	order CDATA #REQUIRED
+>
+
+<!-- Specifikace pro mozna reseni -->
+<!ELEMENT solutions (solution+)>
+<!ELEMENT solution (price)>
+<!ATTLIST solution
+	id ID #REQUIRED
+	insurance_company_id IDREF #REQUIRED
+	product_id IDREF #REQUIRED
+	text_id IDREF #REQUIRED
+	approved (true|false) #REQUIRED
+	selected_offer_id IDREF #FIXED "so"
+>
+<!-- Print element, zde muze byt ANY, ale pro splneni zadni pripisuji vycet elementu, jde o smiseny elemnt -->
+<!ELEMENT print (#PCDATA | solution_a | offer_a | selected_offer_a | selected | user | solutions | print)*> 
+<!ATTLIST print x CDATA #REQUIRED y CDATA #REQUIRED>
+
+<!-- Obecne "listove" elementy -->
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT ico (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+<!ELEMENT identification (#PCDATA)>
+<!ELEMENT registration (#PCDATA)>
+<!ELEMENT shortcut (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT selected (#PCDATA)>
+<!ELEMENT user EMPTY>
+<!ATTLIST user value CDATA #REQUIRED>
+
+<!-- Odkazove atributy, jsou pojmenovane kvuli semanticnosti -->
+<!ELEMENT solution_a EMPTY>
+<!ATTLIST solution_a href IDREF #REQUIRED>
+
+<!ELEMENT offer_a (text_a, property_a+)>
+<!ATTLIST offer_a href IDREF #REQUIRED>
+
+<!ELEMENT selected_offer_a EMPTY>
+<!ATTLIST selected_offer_a href IDREF #REQUIRED>
+
+
+<!ELEMENT text_a EMPTY>
+<!ATTLIST text_a href IDREF #REQUIRED>
+
+<!ELEMENT property_a EMPTY>
+<!ATTLIST property_a href IDREF #REQUIRED>

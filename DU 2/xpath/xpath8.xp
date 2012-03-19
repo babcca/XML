@@ -1,0 +1,2 @@
+(: Naposledy (na konci) pridani klienti pro jednotlive agenty :)
+//agent/clients/client [last()]/name/text()
