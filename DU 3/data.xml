@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="data.xsd"
+>
+<agents>
+	<agent id="a0">
+		<name>Petr Babicka</name>
+		<email>babcca@gmail.com</email>
+		<identification>12123123</identification>
+		<registration>12332a</registration>
+		<address state="Slovakia">
+			<street>nam. Trcku z Lipy 1071</street>
+			<city>Svetla nad Sazavou</city>
+			<postal>58291</postal>
+		</address>
+		<settings>
+			<printer offset_x="0" offset_y="100">ineo250</printer>
+			<printer offset_x="0" offset_y="0">ineo255</printer>
+		</settings>
+	</agent>
+	
+	<agent id="a1">
+		<name>Petr Babicka</name>
+		<email>babcca@gmail.com</email>
+		<identification>12123124</identification>
+		<registration>12332a</registration>
+		<address>
+			<street>nam. Trcku z Lipy 1071</street>
+			<city>Svetla nad Sazavou</city>
+			<postal>58291</postal>
+		</address>
+		<settings>
+		</settings>
+	</agent>
+</agents>
+<document agentId="a1">
+	Ahoj <bold>Svete</bold>
+</document>
+
+</root>
+	

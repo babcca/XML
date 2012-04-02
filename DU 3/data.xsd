@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="agents" />	
+				<xs:element name="document">
+					<!-- Smiseny obsah-->
+					<xs:complexType mixed="true">
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="bold" type="notEmptyString" />
+						</xs:choice>
+						<!-- Nemusi byt xs:IDREF, jelikoz by se to vztahovalo na cely dokument -->
+						<xs:attribute name="agentId" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:keyref name="DocumentOwner" refer="AgentId">
+			<xs:selector xpath="./document" />
+			<xs:field xpath="./@agentId" />
+		</xs:keyref>
+	</xs:element>
+	
+	<xs:element name="agents">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="agent" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+		<xs:key name="AgentId">
+			<xs:selector xpath="./agent" />
+			<xs:field xpath="./@id" />
+		</xs:key>
+		<xs:key name="AgentIdentification">
+			<xs:selector xpath="./agent" />
+			<xs:field xpath="./identification" />
+		</xs:key>
+	</xs:element>
+	
+	<xs:element name="agent">
+		<xs:complexType>
+		<xs:sequence>
+			<xs:element name="name" >
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element ref="email" />
+			<xs:element name="identification">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="6" />
+						<xs:maxLength value="8" />
+						<xs:pattern value="[0-9]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="registration">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="6" />
+						<xs:maxLength value="8" />
+						<xs:pattern value="[0-9a-z]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element ref="address" />
+			<xs:element name="settings">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="printer" minOccurs="0" maxOccurs="5" type="printerType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<!-- Nemusi byt xs:ID, jelikoz staci, aby bylo unikatni vramci elementu agents -->
+		<xs:attribute name="id" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="email">
+		<xs:simpleType>
+			<xs:restriction	base="xs:string">
+				<xs:minLength value="5" />
+				<xs:pattern value="[a-zA-Z0-9.-_]+@[a-zA-Z0-9.-_]+[.][a-zA-Z]{2,5}" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="address">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="street" type="notEmptyString" />
+				<xs:element name="city" type="notEmptyString" />
+				<xs:element name="postal">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="5" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="state" default="Czech Republic">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Czech Republic" />
+						<xs:enumeration value="Slovakia" />
+						<xs:enumeration value="United Kingdom" />
+						<xs:enumeration value="Germany" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="notEmptyString">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="printerType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="offset_x" type="printerOffset" use="required"/>
+				<xs:attribute name="offset_y" type="printerOffset" use="required" />		
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="printerOffset">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="100" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
