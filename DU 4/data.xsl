@@ -36,12 +36,7 @@
 						<xsl:with-param name="ClientsNode" select="./clients" />
 					</xsl:call-template>
 					<!--Vypis dokumentu agenta, zajimave je, jak vypsat obsah nejakeho uzlu vcetne <>-->
-					<xsl:for-each select="//document [@agentId = $AgentId]">
-						<xsl:element name="p" >
-							<!-- Jak escapovat? -->
-							<xsl:copy-of select="node()"/>
-						</xsl:element>
-					</xsl:for-each>
+					<xsl:apply-templates select="//document [@agentId = $AgentId]" />
 				</xsl:for-each>
 			</xsl:element>
 		</xsl:element>
@@ -201,5 +196,12 @@
 			<xsl:with-param name="Label"><xsl:element name="i">Datum narozeni</xsl:element></xsl:with-param>
 		</xsl:call-template>
 		<xsl:copy-of select="./text()" />	
+	</xsl:template>
+	
+	<xsl:template match="document">
+		<xsl:element name="p" >
+			<!-- Jak escapovat? -->
+			<xsl:copy-of select="node()"/>
+		</xsl:element>	
 	</xsl:template>
 </xsl:stylesheet>
