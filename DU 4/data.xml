@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="data.xsd">
+	<agents>
+		<agent id="a0">
+			<name>Petr Babicka</name>
+			<email>babcca@gmail.com</email>
+			<identification>12123123</identification>
+			<registration>12332a</registration>
+			<address state="Slovakia">
+				<street>nam. Trcku z Lipy 1071</street>
+				<city>Svetla nad Sazavou</city>
+				<postal>58291</postal>
+			</address>
+			<settings>
+				<printer offset_x="0" offset_y="100">ineo250</printer>
+				<printer offset_x="0" offset_y="0">ineo255</printer>
+			</settings>
+			<clients>
+				<client id="c5">
+					<name>Karel Bobek</name>
+					<!-- Je klient fizicka nebo pravni osoba, je platce dph -->
+					<subject type="fyzicka" dph="true">
+						<!-- Jak identifikujeme klienta, bud pomoci datumu narozeni nebo pomoci ico -->
+						<date>12.12.1989</date>
+					</subject>
+					<address>
+						<street>V hlusinach 11</street>
+						<city>Svetla nad Sazavou</city>
+						<postal>58291</postal>
+					</address>
+				</client>
+				<client id="c6">
+					<name>Karel Bobek Mladsi</name>
+					<!-- Je klient fizicka nebo pravni osoba, je platce dph -->
+					<subject type="pravni" dph="false">
+						<!-- Jak identifikujeme klienta, bud pomoci datumu narozeni nebo pomoci ico -->
+						<ico>12121989</ico>
+					</subject>
+					<address>
+						<street>V hlusinach 13</street>
+						<city>Svetla nad Sazavou</city>
+						<postal>58291</postal>
+					</address>
+				</client>
+			</clients>
+		</agent>
+		<agent id="a1">
+			<name>Petr Novak</name>
+			<email>babcca@gmail.com</email>
+			<identification>12123124</identification>
+			<registration>12332a</registration>
+			<address>
+				<street>nam. Trcku z Lipy 1071</street>
+				<city>Svetla nad Sazavou</city>
+				<postal>58291</postal>
+			</address>
+			<settings>
+			</settings>
+			<clients>
+				<client id="c0">
+					<name>Karel Omacka</name>
+					<!-- Je klient fizicka nebo pravni osoba, je platce dph -->
+					<subject type="fyzicka" dph="false">
+						<!-- Jak identifikujeme klienta, bud pomoci datumu narozeni nebo pomoci ico -->
+						<date>12.12.1989</date>
+					</subject>
+					<address>
+						<street>V hlusinach 14</street>
+						<city>Svetla nad Sazavou</city>
+						<postal>58291</postal>
+					</address>
+				</client>
+			</clients>
+		</agent>
+	</agents>
+	<document agentId="a1">
+	Ahoj <b>Svete</b>
+	</document>
+</root>
